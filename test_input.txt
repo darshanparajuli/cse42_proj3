@@ -1,0 +1,10 @@
+3
+4533 Campus Dr, Irvine, CA
+1111 Figueroa St, Los Angeles, CA
+3799 S Las Vegas Blvd, Las Vegas, NV
+5
+LATLONG
+STEPS
+TOTALTIME
+TOTALDISTANCE
+ELEVATION
