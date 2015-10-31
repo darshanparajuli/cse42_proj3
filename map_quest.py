@@ -55,15 +55,17 @@ def get_output(locations: [str], output_generators: [str]) -> [[str]]:
     output = []
     for output_generator_type in output_generators:
         output_generator = output_gen.get_ouput_generator(output_generator_type)
-        output.append(output_generator.get_output())
+        if output_generator != None:
+            output.append(output_generator.get_output())
 
     return output
 
 
 def print_result(output: [[str]]) -> None:
     for list_element in output:
-        for element in list_element:
-            print(element)
+        if list_element != None:
+            for element in list_element:
+                print(element)
         
     print()
     print('Directions Courtesy of MapQuest; Map Data Copyright OpenStreetMap Contributors')

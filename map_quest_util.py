@@ -5,6 +5,7 @@
 
 import urllib.parse
 import urllib.request
+import urllib.error
 import json
 
 
@@ -30,7 +31,7 @@ class MapQuestAPI(object):
             json_text = response.read().decode(encoding = 'utf-8')
 
             return json.loads(json_text)
-        except URLError:
+        except (urllib.error.URLError, urllib.error.ContentTooShortError, ValueError):
             return None
         finally:
             if response != None:

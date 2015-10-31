@@ -52,12 +52,13 @@ class OutputGenerators(object):
     def _get_all_elevation_info(self):
         lat_lngs = []
 
-        # multithread the calls to MapQuestElevationAPI to improve performance
-        executor = ThreadPoolExecutor(max_workers = multiprocessing.cpu_count())
-        result = executor.map(self._get_elevation_info, self.location_info['route']['locations'])
+        if self.location_info != None:
+            # multithread the calls to MapQuestElevationAPI to improve performance
+            executor = ThreadPoolExecutor(max_workers = multiprocessing.cpu_count())
+            result = executor.map(self._get_elevation_info, self.location_info['route']['locations'])
 
-        for element in result:
-            lat_lngs.append(element)
+            for element in result:
+                lat_lngs.append(element)
 
         return lat_lngs
 
@@ -89,11 +90,14 @@ class OutputGenerator(object):
                 return 'NO ROUTE FOUND'
         else:
             return ''
-        
+
     
 class StepsOutputGenerator(OutputGenerator):
 
     def get_output(self) -> [str]:
+        if self.response == None:
+            return None
+
         output = ['']
         
         error = self._get_error()
@@ -112,6 +116,9 @@ class StepsOutputGenerator(OutputGenerator):
 class TotalDistanceOutputGenerator(OutputGenerator):
 
     def get_output(self) -> [str]:
+        if self.response == None:
+            return None
+
         output = ['']
         
         error = self._get_error()
@@ -127,6 +134,9 @@ class TotalDistanceOutputGenerator(OutputGenerator):
 class TotalTimeOutputGenerator(OutputGenerator):
 
     def get_output(self) -> [str]:
+        if self.response == None:
+            return None
+
         output = ['']
         
         error = self._get_error()
@@ -142,6 +152,9 @@ class TotalTimeOutputGenerator(OutputGenerator):
 class LatLongOutputGenerator(OutputGenerator):
 
     def get_output(self) -> [str]:
+        if self.response == None:
+            return None
+
         output = ['']
         
         error = self._get_error()
@@ -161,6 +174,9 @@ class LatLongOutputGenerator(OutputGenerator):
 class ElevationOutputGenerator(OutputGenerator):
 
     def get_output(self) -> [str]:
+        if self.response == None:
+            return None
+
         output = ['']
 
         valid_responses = []
