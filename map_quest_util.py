@@ -22,7 +22,7 @@ class MapQuestAPI(object):
                 
     # Private method
     def _build_url(self, path, query_params):
-        return MapQuestAPI._BASE_URL + path + urllib.parse.urlencode(query_params)
+        return MapQuestAPI._BASE_URL + path + '?' + urllib.parse.urlencode(query_params)
 
     def _get_result(self, url) -> 'Dictionary object':
         response = None
@@ -40,7 +40,7 @@ class MapQuestAPI(object):
                 
 class MapQuestDirectionAPI(MapQuestAPI):
 
-    _URL_PATH = '/directions/v2/route?'
+    _URL_PATH = '/directions/v2/route'
 
     def __init__(self, locations: [str]):
         self.locations = locations
@@ -62,7 +62,7 @@ class MapQuestDirectionAPI(MapQuestAPI):
     
 class MapQuestElevationAPI(MapQuestAPI):
 
-    _URL_PATH = '/elevation/v1/profile?'
+    _URL_PATH = '/elevation/v1/profile'
 
     def __init__(self, lat_lng: ('latitudes', 'longitutes')):
         self.lat_lng = lat_lng
