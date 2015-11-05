@@ -25,6 +25,9 @@ class OutputGenerators(object):
         self.location_info = self._get_location_info()
         
     def get_ouput_generator(self, output_generator_type: str) -> 'Output generator object':
+        if self.location_info == None:
+            return None
+        
         # get cached output generator if available
         output_generator = self.output_generators.get(output_generator_type, None)
 

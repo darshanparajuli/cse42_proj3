@@ -65,10 +65,13 @@ def print_result(output: [[str]]) -> None:
     for list_element in output:
         if list_element != None:
             for element in list_element:
-                print(element)
-        
+                print(element) 
+    
     print()
-    print('Directions Courtesy of MapQuest; Map Data Copyright OpenStreetMap Contributors')
+    if len(output) == 0:
+        print('MAPQUEST ERROR')
+    else:
+        print('Directions Courtesy of MapQuest; Map Data Copyright OpenStreetMap Contributors')
 
 def _get_input_as_int() -> int:
     try:
