@@ -23,7 +23,7 @@ def get_locations(num_locations: int) -> [str]:
         if user_input == '':
             _print_error_msg('Location cannot be an empty string.')
             return None
-        
+
         locations.append(user_input)
 
     return locations
@@ -36,7 +36,7 @@ def get_num_output_generators() -> str:
     else:
        return num
 
-   
+
 def get_output_generators(num_generators: int) -> [str]:
     output_generators = []
     for i in range(num_generators):
@@ -65,8 +65,8 @@ def print_result(output: [[str]]) -> None:
     for list_element in output:
         if list_element != None:
             for element in list_element:
-                print(element) 
-    
+                print(element)
+
     print()
     if len(output) == 0:
         print('MAPQUEST ERROR')
@@ -79,11 +79,11 @@ def _get_input_as_int() -> int:
     except ValueError:
         return None
 
-    
+
 def _print_error_msg(error_msg: str):
     print('\n{}'.format(error_msg))
 
-    
+
 def main() -> None:
     num_locations = get_num_locations()
     if num_locations == None:
@@ -92,7 +92,7 @@ def main() -> None:
     locations = get_locations(num_locations)
     if locations == None:
         return
-    
+
     num_generators = get_num_output_generators()
     if num_generators == None:
         return
@@ -103,7 +103,7 @@ def main() -> None:
 
     output = get_output(locations, output_generators)
     print_result(output)
-    
-    
+
+
 if __name__ == '__main__':
     main()

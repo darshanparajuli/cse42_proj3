@@ -23,11 +23,11 @@ class OutputGenerators(object):
         self.locations = locations
         self.output_generators = {}
         self.location_info = self._get_location_info()
-        
+
     def get_ouput_generator(self, output_generator_type: str) -> 'Output generator object':
         if self.location_info == None:
             return None
-        
+
         # get cached output generator if available
         output_generator = self.output_generators.get(output_generator_type, None)
 
@@ -47,11 +47,11 @@ class OutputGenerators(object):
             self.output_generators[output_generator_type] = output_generator
 
         return output_generator
-        
+
     def _get_location_info(self):
         map_quest_direction_api = MapQuestDirectionAPI(self.locations)
         return map_quest_direction_api.get_result()
-    
+
     def _get_all_elevation_info(self):
         lat_lngs = []
 
@@ -69,12 +69,12 @@ class OutputGenerators(object):
         lat_lng = location['latLng']
         map_quest_elevation_api = MapQuestElevationAPI((lat_lng['lat'], lat_lng['lng']))
         return map_quest_elevation_api.get_result()
-    
+
     # Static method
     def is_valid_output_generator(output_generator: str) -> bool:
         valid_ouput_generators = [_STEPS, _TOTAL_DISTANCE, _TOTAL_TIME, _LAT_LONG, _ELEVATION]
         return output_generator in valid_ouput_generators
-    
+
 
 class OutputGenerator(object):
 
@@ -94,7 +94,7 @@ class OutputGenerator(object):
         else:
             return ''
 
-    
+
 class StepsOutputGenerator(OutputGenerator):
 
     def get_output(self) -> [str]:
@@ -102,7 +102,7 @@ class StepsOutputGenerator(OutputGenerator):
             return None
 
         output = ['']
-        
+
         error = self._get_error()
         if error == '':
             output.append('DIRECTIONS')
@@ -115,7 +115,7 @@ class StepsOutputGenerator(OutputGenerator):
 
         return output
 
-    
+
 class TotalDistanceOutputGenerator(OutputGenerator):
 
     def get_output(self) -> [str]:
@@ -123,7 +123,7 @@ class TotalDistanceOutputGenerator(OutputGenerator):
             return None
 
         output = ['']
-        
+
         error = self._get_error()
         if error == '':
             distance = round(self.response['route']['distance'])
@@ -133,7 +133,7 @@ class TotalDistanceOutputGenerator(OutputGenerator):
 
         return output
 
-    
+
 class TotalTimeOutputGenerator(OutputGenerator):
 
     def get_output(self) -> [str]:
@@ -141,7 +141,7 @@ class TotalTimeOutputGenerator(OutputGenerator):
             return None
 
         output = ['']
-        
+
         error = self._get_error()
         if error == '':
             time = round(self.response['route']['time'] / 60.0)
@@ -151,7 +151,7 @@ class TotalTimeOutputGenerator(OutputGenerator):
 
         return output
 
-    
+
 class LatLongOutputGenerator(OutputGenerator):
 
     def get_output(self) -> [str]:
@@ -159,7 +159,7 @@ class LatLongOutputGenerator(OutputGenerator):
             return None
 
         output = ['']
-        
+
         error = self._get_error()
         if error == '':
             output.append('LATLONGS')
@@ -172,8 +172,8 @@ class LatLongOutputGenerator(OutputGenerator):
             output.append(error)
 
         return output
-        
-    
+
+
 class ElevationOutputGenerator(OutputGenerator):
 
     def get_output(self) -> [str]:
@@ -189,7 +189,7 @@ class ElevationOutputGenerator(OutputGenerator):
                 valid_responses.append(response)
             else:
                 output.append(error)
-                
+
         if len(valid_responses) > 0:
             output.append('ELEVATIONS')
             for response in valid_responses:
